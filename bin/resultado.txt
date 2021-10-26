@@ -1,0 +1,3 @@
+Arquivo: texto2.txt Total = 26
+Arquivo: texto.txt Total = 17
+Total de Vogais 43
