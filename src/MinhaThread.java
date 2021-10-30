@@ -1,20 +1,36 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+
 public class MinhaThread extends Thread {
    private Integer id;
-   private String linha;
+   private File arquivo;
    private Integer tempo;
    private Integer qtdVogais;
-   private String filename;
 
-   public MinhaThread(Integer id, String linha, Integer tempo, String filename) {
+   public MinhaThread(Integer id, File arquivo, Integer tempo) {
       this.id = id;
-      this.linha = linha;
+      this.arquivo = arquivo;
       this.tempo = tempo;
       this.qtdVogais = 0;
-      this.filename = filename;
+   }
+   public MinhaThread(){
+      this.qtdVogais = 0;
+      this.tempo = 0;
+   }
+
+   public void setId(Integer id){
+      this.id = id;
+   }
+   public void setArquivo(File arquivo){
+      this.arquivo = arquivo;
+   }
+   public void setTempo(Integer tempo){
+      this.tempo = tempo;
    }
 
    public String getFilename() {
-      return filename;
+      return arquivo.getName();
    }
 
    public Integer getQtdVogais(){
@@ -22,14 +38,22 @@ public class MinhaThread extends Thread {
    }
 
    @Override
-   public void run(){
+   public synchronized void run(){
       try {
          Thread.sleep(tempo);
-      } catch (InterruptedException e) {
-         e.printStackTrace();
+         BufferedReader lerArq = new BufferedReader( new FileReader(arquivo) );
+         String linha = lerArq.readLine();
+         while (linha != null) {
+            String vogais = linha.toLowerCase().replaceAll("[^a|e|i|o|u]","");
+            qtdVogais += vogais.length();
+            linha = lerArq.readLine();
+         }
+         System.out.println("Thread "+ id +" Arquivo:  "+ arquivo +" vogais "+ qtdVogais);
+         lerArq.close();
+      } catch (Exception e) {
+         System.out.println("Error: " + e.getMessage());
       }
-      String vogais = linha.toLowerCase().replaceAll("[^aeiou]", "");
-      qtdVogais += vogais.length();
-      System.out.printf("Thead "+ id +" linha = "+ linha +" %s\n", vogais.length());
+
    }
+
 }

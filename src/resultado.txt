@@ -1,3 +1,7 @@
-Arquivo: texto2.txt Total = 26
-Arquivo: texto.txt Total = 17
-Total de Vogais 43
+Arquivo: resultado.txt Total: 46
+Arquivo: App2.java Total: 151
+Arquivo: App.java Total: 453
+Arquivo: files Total: 0
+Arquivo: MinhaThread.java Total: 353
+Arquivo: Deadlocks.java Total: 147
+Total de Vogais 1150
